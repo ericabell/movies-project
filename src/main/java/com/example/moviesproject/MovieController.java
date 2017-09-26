@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class MovieController {
@@ -32,8 +33,17 @@ public class MovieController {
 
     @RequestMapping("/medium-popular-long-name")
     public String mediumPopularLongName(Model model) {
+        // filter the list to include movies whose title is at least 10 characters long
+        // and popularity is between 30 and 80
+        List<Movie> movies = getMovies();
+        List<Movie> filteredMovies;
+        filteredMovies = movies.stream()
+                .filter( movie -> movie.getTitle().length() > 10 )
+                .filter( movie -> movie.getPopularity() > 100 && movie.getPopularity() < 200)
+                .collect( Collectors.toList());
+        model.addAttribute("movies", filteredMovies);
 
-        return "medium-popular-long-name";
+        return "now-playing";
     }
 
     @RequestMapping("/overview-mashup")
