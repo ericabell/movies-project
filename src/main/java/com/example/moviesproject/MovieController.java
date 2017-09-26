@@ -64,6 +64,7 @@ public class MovieController {
         }
 
         System.out.println(response.getTotal_pages());
+        System.out.println(response.getResults());
 
         return response;
     }

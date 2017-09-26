@@ -7,19 +7,19 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IMDBResponse {
-    private List results;
+    private List<Movie> results;
     private Integer total_pages;
 
     public IMDBResponse() {
     }
 
-//    public List getResults() {
-//        return results;
-//    }
-//
-//    public void setResults(List results) {
-//        this.results = results;
-//    }
+    public List<Movie> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Movie> results) {
+        this.results = results;
+    }
 
     public Integer getTotal_pages() {
         return total_pages;
