@@ -9,7 +9,9 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Controller
@@ -48,24 +50,42 @@ public class MovieController {
 
     @RequestMapping("/overview-mashup")
     public String overviewMashup(Model model) {
+        List<Movie> movies = getMovies();
+        List<Movie> mashupMovies;
 
-        return "overview-mashup";
+        ArrayList<String> randomSentences = new ArrayList<String>();
+
+        for( Movie movie : movies ) {
+            // grab the description, and split into sentences
+            for( String sentence : movie.getOverview().split("\\.")) {
+                // push the sentence
+                randomSentences.add(sentence);
+            }
+        }
+        Random random = new Random();
+
+        Collections.sort(randomSentences, (e1, e2) -> random.nextInt(3) - 1);
+        // now we have randomSentences populated
+        // go through the movie list and modify the overview
+        for( Movie movie : movies ) {
+            movie.setOverview(randomSentences.get(random.nextInt(randomSentences.size())) + ". " +
+                    randomSentences.get(random.nextInt(randomSentences.size())) + ". " +
+                    randomSentences.get(random.nextInt(randomSentences.size()))
+            );
+        }
+
+        System.out.println(movies);
+
+        model.addAttribute("movies", movies);
+
+        return "now-playing";
     }
 
     public static List<Movie> getMovies() {
 
         IMDBResponse response = new IMDBResponse();
         List<Movie> movies;
-
         RestTemplate restTemplate = new RestTemplate();
-
-        System.out.println("Before RestTemplate call");
-
-        //ResponseEntity<Movie> responseEntity = restTemplate.getForEntity(API_URL, Movie.class);
-
-        //HttpStatus statusCode = responseEntity.getStatusCode();
-
-        // System.out.println("Status code: " + statusCode );
 
         try {
             response =
@@ -74,12 +94,6 @@ public class MovieController {
         } catch( RestClientException ex) {
             System.out.println(ex);
         }
-
-        System.out.println(response.getTotal_pages());
-        System.out.println(response.getResults().get(0).getTitle());
-        System.out.println(response.getResults().get(0).getOverview());
-        System.out.println(response.getResults().get(0).getPopularity());
-        System.out.println(response.getResults().get(0).getPoster_path());
 
         movies = response.getResults();
 
