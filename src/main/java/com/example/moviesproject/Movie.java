@@ -3,13 +3,15 @@ package com.example.moviesproject;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie {
     String title;
-    @JsonProperty
-    String posterPath;
-    String overview;
-    double popularity;
+    //@JsonProperty
+    //String posterPath;
+    //String overview;
+    //double popularity;
 
     public Movie() {
     }
@@ -22,27 +24,28 @@ public class Movie {
         this.title = title;
     }
 
-    public String getPosterPath() {
-        return posterPath;
-    }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public double getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(double popularity) {
-        this.popularity = popularity;
-    }
+//    public String getPosterPath() {
+//        return posterPath;
+//    }
+//
+//    public void setPosterPath(String posterPath) {
+//        this.posterPath = posterPath;
+//    }
+//
+//    public String getOverview() {
+//        return overview;
+//    }
+//
+//    public void setOverview(String overview) {
+//        this.overview = overview;
+//    }
+//
+//    public double getPopularity() {
+//        return popularity;
+//    }
+//
+//    public void setPopularity(double popularity) {
+//        this.popularity = popularity;
+//    }
 }
