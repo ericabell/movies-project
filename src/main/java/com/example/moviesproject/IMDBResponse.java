@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IMDBResponse implements Serializable {
+public class IMDBResponse {
     private List results;
     private Integer total_pages;
 
