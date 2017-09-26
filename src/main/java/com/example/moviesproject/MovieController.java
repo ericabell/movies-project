@@ -24,8 +24,9 @@ public class MovieController {
 
     @RequestMapping("/now-playing")
     public String nowPlaying(Model model) {
-        IMDBResponse movies = getMovies();
-        System.out.println(movies);
+        List<Movie> movies = getMovies();
+        model.addAttribute("movies", movies);
+
         return "now-playing";
     }
 
@@ -41,9 +42,10 @@ public class MovieController {
         return "overview-mashup";
     }
 
-    public static IMDBResponse getMovies() {
+    public static List<Movie> getMovies() {
 
         IMDBResponse response = new IMDBResponse();
+        List<Movie> movies;
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -64,8 +66,13 @@ public class MovieController {
         }
 
         System.out.println(response.getTotal_pages());
-        System.out.println(response.getResults());
+        System.out.println(response.getResults().get(0).getTitle());
+        System.out.println(response.getResults().get(0).getOverview());
+        System.out.println(response.getResults().get(0).getPopularity());
+        System.out.println(response.getResults().get(0).getPoster_path());
 
-        return response;
+        movies = response.getResults();
+
+        return movies;
     }
 }

@@ -6,5 +6,12 @@
 </head>
 <body>
 
+<table>
+    <tr th:each="movie : ${movies}">
+        <td th:text="${movie.title}"></td>
+        <td th:text="${movie.overview}"></td>
+    </tr>
+</table>
+
 </body>
 </html>
